@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Cậu Nè ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden; /* Ngăn thanh cuộn khi nút chạy */
+        }
+        .cute-font {
+            font-family: 'Pacifico', cursive;
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Hiệu ứng tim bay */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: flyUp 4s linear infinite;
+            opacity: 0;
+        }
+        @keyframes flyUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-pink-200 to-red-100 h-screen w-screen flex flex-col justify-center items-center relative select-none">
+
+    <!-- Container chính -->
+    <div id="main-card" class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-2xl text-center max-w-md w-[90%] border-4 border-pink-300 z-10 transition-all duration-500">
+        
+        <!-- Ảnh Gif/Emoji cute -->
+        <div class="mb-6 animate-float">
+            <!-- Sử dụng SVG inline để đảm bảo luôn hiển thị đẹp -->
+            <svg class="w-32 h-32 mx-auto text-pink-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                <path d="M12 5.67V21.23" stroke-opacity="0.3"></path>
+            </svg>
+            <!-- Hoặc bạn có thể thay thế bằng thẻ img src="link_anh_cua_ban" -->
+        </div>
+
+        <!-- Câu hỏi -->
+        <h1 class="cute-font text-3xl md:text-4xl text-pink-600 mb-4 leading-tight">
+            24 này mình đi ăn Noel nha <br>
+            <span class="text-xl text-gray-600 font-sans mt-2 block">(Trả lời thật lòng nha!)</span>
+        </h1>
+
+        <!-- Khu vực nút bấm -->
+        <div class="flex flex-col md:flex-row gap-4 justify-center items-center mt-8 h-24 md:h-auto relative">
+            
+            <!-- Nút Có -->
+            <button id="yesBtn" onclick="acceptLove()" class="px-8 py-3 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-full text-xl shadow-lg transform transition hover:scale-110 focus:outline-none ring-4 ring-pink-200">
+                Oki chốt đơn! 😍
+            </button>
+
+            <!-- Nút Không (Sẽ chạy trốn) -->
+            <button id="noBtn" class="px-8 py-3 bg-gray-400 text-white font-bold rounded-full text-xl shadow-lg cursor-pointer transition-all duration-100 absolute md:static" style="transition: all 0.2s ease;">
+                Để xem đã:))
+            </button>
+        </div>
+    </div>
+
+    <!-- Màn hình chúc mừng (Ẩn mặc định) -->
+    <div id="success-screen" class="hidden fixed inset-0 z-50 flex flex-col justify-center items-center bg-pink-50/95">
+        <div class="animate-bounce mb-8">
+            <svg class="w-40 h-40 text-red-500 drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+            </svg>
+        </div>
+        <h2 class="cute-font text-4xl md:text-6xl text-pink-600 text-center mb-4 px-4">
+            Hẹn cậu 24 này nhé! ❤️
+        </h2>
+        <p class="text-gray-600 text-xl text-center px-4 mb-8">
+            Tớ đã chọn quán rồi, chuẩn bị xem nhé!
+        </p>
+        
+        <!-- Nút dẫn đến web Pizza (Dự phòng) -->
+        <a href="https://thepizzacompany.vn/" target="_blank" class="px-8 py-3 bg-white border-2 border-pink-500 text-pink-600 font-bold rounded-full hover:bg-pink-50 shadow-md transition transform hover:scale-105 flex items-center gap-2">
+            <span>Xem ngay</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+
+        <!-- Màn hình đếm ngược to đùng (Mặc định ẩn) -->
+        <div id="countdown-overlay" class="hidden absolute inset-0 bg-white/90 backdrop-blur-md flex flex-col justify-center items-center z-50 transition-opacity duration-300">
+            <p class="text-2xl text-gray-500 font-bold mb-4 animate-pulse">Đang dịch chuyển tới quán Pizza...</p>
+            <div id="countdown-number" class="text-[150px] font-black text-pink-500 leading-none drop-shadow-xl scale-100 transition-transform">
+                5
+            </div>
+            <!-- Thêm dòng chú thích nhỏ -->
+            <p class="text-gray-400 text-sm mt-4">(Nếu không tự chuyển, hãy bấm vào số 0 ở trên)</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainCard = document.getElementById('main-card');
+        const successScreen = document.getElementById('success-screen');
+        const countdownOverlay = document.getElementById('countdown-overlay');
+        const countdownNumber = document.getElementById('countdown-number');
+
+        // Hàm di chuyển nút "Không"
+        function moveButton() {
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight;
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            const randomX = Math.random() * (containerWidth - btnWidth - 40) + 20;
+            const randomY = Math.random() * (containerHeight - btnHeight - 40) + 20;
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+        noBtn.addEventListener('click', (e) => { e.preventDefault(); moveButton(); });
+
+        // Xử lý khi chọn "Có"
+        function acceptLove() {
+            // Hiệu ứng pháo hoa
+            const duration = 3000;
+            const end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff0000', '#ffccd5', '#ff4d6d'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff0000', '#ffccd5', '#ff4d6d'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+
+            // Ẩn card chính, hiện màn hình chúc mừng
+            mainCard.style.transform = 'scale(0)';
+            setTimeout(() => {
+                mainCard.classList.add('hidden');
+                successScreen.classList.remove('hidden');
+                createFloatingHearts();
+                
+                // Đợi 3 giây rồi mới hiện đếm ngược to
+                setTimeout(startBigCountdown, 3000);
+            }, 500);
+        }
+
+        // Hàm đếm ngược to đùng
+        function startBigCountdown() {
+            countdownOverlay.classList.remove('hidden'); // Hiện overlay
+            let timeLeft = 5;
+            const targetUrl = "https://thepizzacompany.vn/"; // Link web pizza
+
+            countdownNumber.innerText = timeLeft;
+
+            const interval = setInterval(() => {
+                timeLeft--;
+                countdownNumber.innerText = timeLeft;
+                
+                // Hiệu ứng nhịp tim cho số
+                countdownNumber.style.transform = 'scale(1.2)';
+                setTimeout(() => countdownNumber.style.transform = 'scale(1)', 200);
+
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    
+                    // Biến số 0 thành chữ và gắn link luôn để backup
+                    countdownNumber.innerHTML = `<a href="${targetUrl}" class="text-pink-600 hover:text-pink-700 underline decoration-wavy cursor-pointer">Đi thôi! 🚀</a>`;
+                    countdownNumber.style.fontSize = "80px"; // Giảm size chữ đi một chút cho vừa
+                    
+                    // Thử tự động chuyển sau 0.5s
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                }
+            }, 1000);
+        }
+
+        // Tạo hiệu ứng tim bay nền
+        function createFloatingHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => { heart.remove(); }, 5000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
